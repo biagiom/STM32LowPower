@@ -76,8 +76,9 @@ public:
   }
 
   void attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback, uint32_t mode);
-
+#if defined(STM32L4xx) || defined(STM32L0xx)
   void enableWakeupFrom(HardwareSerial *serial, voidFuncPtrVoid callback);
+#endif
   void enableWakeupFrom(STM32RTC *rtc, voidFuncPtr callback);
 
 private:

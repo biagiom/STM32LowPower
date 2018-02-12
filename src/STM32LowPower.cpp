@@ -165,6 +165,7 @@ void STM32LowPower::attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback
   LowPower_EnableWakeUpPin(pin, mode);
 }
 
+#if defined(STM32L4xx) || defined(STM32L0xx)
 /**
   * @brief  Enable a serial interface as a wakeup source.
   * @param  serial: pointer to a HardwareSerial
@@ -176,6 +177,7 @@ void STM32LowPower::enableWakeupFrom(HardwareSerial *serial, voidFuncPtrVoid cal
 {
   LowPower_EnableWakeUpUart(&(serial->_serial), callback);
 }
+#endif
 
 /**
   * @brief  Attach a callback to a RTC alarm.
