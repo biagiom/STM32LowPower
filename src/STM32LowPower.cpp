@@ -165,7 +165,7 @@ void STM32LowPower::attachInterruptWakeup(uint32_t pin, voidFuncPtrVoid callback
   LowPower_EnableWakeUpPin(pin, mode);
 }
 
-#if defined(STM32L4xx) || defined(STM32L0xx)
+#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F0xx) || defined(STM32F3xx)
 /**
   * @brief  Enable a serial interface as a wakeup source.
   * @param  serial: pointer to a HardwareSerial
@@ -202,7 +202,7 @@ void STM32LowPower::programRtcWakeUp(uint32_t millis)
   uint32_t sec;
 
   if(millis > 0) {
-    if (!rtcLowPower.isConfigured()){
+    if (!rtcLowPower.isConfigured()) {
       //Enable RTC
       rtcLowPower.begin(HOUR_24);
     }
@@ -210,12 +210,12 @@ void STM32LowPower::programRtcWakeUp(uint32_t millis)
     // convert millisecond to second
     sec = millis / 1000;
     // Minimum is 1 second
-    if (sec == 0){
+    if (sec == 0) {
       sec = 1;
     }
 
     epoc = rtcLowPower.getEpoch();
-    rtcLowPower.setAlarmEpoch( epoc + sec );
+    rtcLowPower.setAlarmEpoch(epoc + sec);
   }
 
 }
